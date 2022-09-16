@@ -13,6 +13,7 @@
 import { defineComponent } from 'vue';
 import CronomentroTarefa from './CronomentroTarefa.vue';
 import BotaoTemporizador from './BotaoTemporizador.vue';
+import { thisExpression } from '@babel/types';
 
 export default defineComponent({
     name: "TemporizadorTarefa",
@@ -39,8 +40,9 @@ export default defineComponent({
             console.log("Finalizando");
 
             clearInterval(this.cronometro);
-            this.executando = false;
             this.$emit('aoTemporizadorFinalizado', this.tempoEmSegundos)
+            this.tempoEmSegundos = 0;
+            this.executando = false;
         }
     },
     emits: ['aoTemporizadorFinalizado']

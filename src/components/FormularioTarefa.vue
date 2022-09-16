@@ -21,6 +21,7 @@
 
     export default defineComponent({
         name: "FormularioTarefa",
+        emits: ['aoFinalizarTarefa'],
         components: { TemporizadorTarefa },
         data () {
             return {
@@ -31,6 +32,10 @@
             finalizarTarefa (tempoDecorrido: number) : void {
                 console.log('Tempo da tarefa', tempoDecorrido);
                 console.log('Descrição da tarefa', this.descricao);
+                this.$emit('aoFinalizarTarefa', {
+                    duracaoEmSegundos: tempoDecorrido,
+                    descricao: this.descricao
+                });
                 this.descricao = '';
             }
         }
