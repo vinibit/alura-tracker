@@ -13,7 +13,6 @@
 import { defineComponent } from 'vue';
 import CronomentroTarefa from './CronomentroTarefa.vue';
 import BotaoTemporizador from './BotaoTemporizador.vue';
-import { thisExpression } from '@babel/types';
 
 export default defineComponent({
     name: "TemporizadorTarefa",
