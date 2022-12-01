@@ -32,26 +32,33 @@
 </template>
 
 <script lang="ts">
-import IProjeto from '@/interfaces/IProjetos';
 import { defineComponent } from 'vue';
+import { useStore } from '@/store';
+import { computed } from '@vue/reactivity';
 
 export default defineComponent({
     name: "ProjetosView",
     data() {
         return {
-            nomeProjeto: "",
-            projetos: [] as IProjeto[]
+            nomeProjeto: ""            
         }
     },
     methods: {
         salvar () {
-            const projeto: IProjeto = {
-                id: new Date().toISOString(),
-                nome: this.nomeProjeto
-            }
-            this.projetos.push(projeto)
-            this.nomeProjeto = ''
+            // const projeto: IProjeto = {
+            //     id: new Date().toISOString(),
+            //     nome: this.nomeProjeto
+            // }
+            // this.projetos.push(projeto)
+            this.store.commit('ADICIONA_PROJETO', this.nomeProjeto);
+            this.nomeProjeto = '';
         }
+    }, setup () {
+        const store = useStore();
+        return { 
+            store,
+            projetos: computed(() => store.state.projetos)
+        };
     } 
 })
 </script>
