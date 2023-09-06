@@ -28,6 +28,8 @@ import { useStore } from 'vuex';
 
 import { key } from '@/store';
 import TemporizadorTarefa from "./TemporizadorTarefa.vue";
+import { NOTIFICAR } from '@/store/tipo-mutacoes';
+import { TipoNotificao } from '@/interfaces/INotificacao';
 
 export default defineComponent({
     name: "FormularioTarefa",
@@ -41,11 +43,22 @@ export default defineComponent({
     },
     methods: {
         finalizarTarefa(tempoDecorrido: number): void {
+
+            const projeto = this.projetos.find((p) => p.id == this.idProjeto);
+
+            if (!projeto) {
+                this.store.commit(NOTIFICAR, {
+                    titulo: 'Aviso',
+                    texto: 'Selecione um projeto antes de finalizar a tarefa!',
+                    tipo: TipoNotificao.ATENCAO
+                });
+                return;
+            }
             
             this.$emit('aoFinalizarTarefa', {
                 duracaoEmSegundos: tempoDecorrido,
                 descricao: this.descricao,
-                projeto: this.projetos.find(proj => proj.id == this.idProjeto)
+                projeto: projeto
             });
             this.descricao = '';
         }
