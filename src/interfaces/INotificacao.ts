@@ -1,4 +1,4 @@
-export enum TipoNotificao {
+export enum TipoNotificacao {
     SUCESSO,
     FALHA,
     ATENCAO
@@ -7,6 +7,6 @@ export enum TipoNotificao {
 export interface INotificacao {
     titulo: string
     texto: string,
-    tipo: TipoNotificao,
+    tipo: TipoNotificacao,
     id: number
 }

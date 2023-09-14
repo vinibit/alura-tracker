@@ -1,5 +1,5 @@
 import IProjeto from "@/interfaces/IProjetos";
-import { INotificacao, TipoNotificao } from "@/interfaces/INotificacao";
+import { INotificacao, TipoNotificacao } from "@/interfaces/INotificacao";
 import { createStore, Store, useStore as vuexUseStore } from 'vuex'
 import { InjectionKey } from "vue";
 import { ADICIONA_PROJETO, ALTERA_PROJETO, EXCLUI_PROJETO, NOTIFICAR } from "./tipo-mutacoes";

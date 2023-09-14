@@ -29,7 +29,7 @@ import { useStore } from 'vuex';
 import { key } from '@/store';
 import TemporizadorTarefa from "./TemporizadorTarefa.vue";
 import { NOTIFICAR } from '@/store/tipo-mutacoes';
-import { TipoNotificao } from '@/interfaces/INotificacao';
+import { TipoNotificacao } from '@/interfaces/INotificacao';
 
 export default defineComponent({
     name: "FormularioTarefa",
@@ -50,7 +50,7 @@ export default defineComponent({
                 this.store.commit(NOTIFICAR, {
                     titulo: 'Aviso',
                     texto: 'Selecione um projeto antes de finalizar a tarefa!',
-                    tipo: TipoNotificao.ATENCAO
+                    tipo: TipoNotificacao.ATENCAO
                 });
                 return;
             }
