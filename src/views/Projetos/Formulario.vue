@@ -16,10 +16,10 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useStore } from '@/store';
-import { ADICIONA_PROJETO, ALTERA_PROJETO, NOTIFICAR } from '@/store/tipo-mutacoes';
 import { TipoNotificacao } from '@/interfaces/INotificacao';
 // import { notificacaoMixin } from '@/mixins/notificar';
 import useNotificador from '@/hooks/notificador';
+import { CADASTRAR_PROJETO, ALTERAR_PROJETO } from '@/store/tipo-acoes';
 
 export default defineComponent({
     name: "Formulario",
@@ -43,18 +43,21 @@ export default defineComponent({
     methods: {
         salvar() {
 
+            let promise: Promise<any>;
             if (this.id) {
-                this.store.commit(ALTERA_PROJETO, {
+                const projeto = {
                     id: this.id,
                     nome: this.nomeProjeto
-                })
+                };
+                promise = this.store.dispatch(ALTERAR_PROJETO, projeto);                    
             } else {
-                this.store.commit(ADICIONA_PROJETO, this.nomeProjeto);
+                promise = this.store.dispatch(CADASTRAR_PROJETO, this.nomeProjeto)                    
             }
-            
-            this.nomeProjeto = '';
-            this.notificar(TipoNotificacao.SUCESSO, 'Excelente!', 'Projeto foi cadastrado com sucesso!');
-            this.$router.push('/projetos');
+            promise.then(() => {
+                this.nomeProjeto = '';
+                this.notificar(TipoNotificacao.SUCESSO, 'Excelente!', 'Projeto foi gravado com sucesso!');
+                this.$router.push('/projetos');
+            });            
         },
         
     }, 
